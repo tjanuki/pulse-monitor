@@ -30,4 +30,14 @@ class StatusNode extends Model
     {
         return $this->hasMany(StatusMetric::class);
     }
+    
+    /**
+     * Get the latest metrics for each unique name.
+     */
+    public function latestMetrics(): HasMany
+    {
+        return $this->hasMany(StatusMetric::class)
+            ->orderByDesc('recorded_at')
+            ->take(10);
+    }
 }

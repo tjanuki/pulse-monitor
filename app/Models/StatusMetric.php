@@ -17,11 +17,13 @@ class StatusMetric extends Model
         'value',
         'status',
         'recorded_at',
+        'metadata',
     ];
 
     protected $casts = [
         'value' => 'float',
         'recorded_at' => 'datetime',
+        'metadata' => 'json',
     ];
 
     /**

@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\Api\MetricsController;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
 // Web routes
 Route::get('/', function () {
     return view('welcome');
-});
-
-// API routes
-Route::prefix('api')->group(function () {
-    // Metrics routes - protected with API key middleware
-    Route::middleware('verify.node.api')->group(function () {
-        Route::post('/metrics', [MetricsController::class, 'store']);
-    });
 });

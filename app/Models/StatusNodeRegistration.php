@@ -38,7 +38,7 @@ class StatusNodeRegistration extends Model
      *
      * @return string
      */
-    protected static function generateApiKey(): string
+    public static function generateApiKey(): string
     {
         $apiKey = Str::random(32);
 

@@ -16,15 +16,17 @@ class MetricsService
      * @param string $name
      * @param float $value
      * @param string|null $group
+     * @param string|null $timestamp
+     * @param array|null $metadata
      * @return StatusMetric
      */
-    public function processMetric(StatusNode $statusNode, string $name, float $value, ?string $group = null): StatusMetric
+    public function processMetric(StatusNode $statusNode, string $name, float $value, ?string $group = null, ?string $timestamp = null, ?array $metadata = null): StatusMetric
     {
         // Determine status based on thresholds
         $status = $this->determineMetricStatus($name, $value);
         
         // Store the metric
-        $metric = $this->storeMetric($statusNode, $name, $value, $status, $group);
+        $metric = $this->storeMetric($statusNode, $name, $value, $status, $group, $timestamp, $metadata);
         
         // Update node status
         $this->updateNodeStatus($statusNode);
@@ -68,24 +70,33 @@ class MetricsService
      * @param float $value
      * @param string $status
      * @param string|null $group
+     * @param string|null $timestamp
+     * @param array|null $metadata
      * @return StatusMetric
      */
-    public function storeMetric(StatusNode $statusNode, string $name, float $value, string $status, ?string $group = null): StatusMetric
+    public function storeMetric(StatusNode $statusNode, string $name, float $value, string $status, ?string $group = null, ?string $timestamp = null, ?array $metadata = null): StatusMetric
     {
         try {
-            return StatusMetric::create([
+            $metric = StatusMetric::create([
                 'status_node_id' => $statusNode->id,
                 'name' => $name,
                 'group' => $group,
                 'value' => $value,
                 'status' => $status,
-                'recorded_at' => now(),
+                'recorded_at' => $timestamp ? new \DateTime($timestamp) : now(),
+                'metadata' => $metadata ? json_encode($metadata) : null,
             ]);
+            
+            // Attach the threshold configuration for reference in the controller
+            $metric->threshold_config = ThresholdConfiguration::where('metric_name', $name)->first();
+            
+            return $metric;
         } catch (\Exception $e) {
             Log::error('Failed to store metric: ' . $e->getMessage(), [
                 'node_id' => $statusNode->id,
                 'metric_name' => $name,
                 'value' => $value,
+                'group' => $group,
             ]);
             
             throw $e;
