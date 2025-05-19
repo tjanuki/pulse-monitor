@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Web routes
-Route::get('/', function () {
+// Dashboard routes
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/nodes/{id}', [DashboardController::class, 'nodeDetails'])->name('nodes.details');
+
+// Legacy welcome route
+Route::get('/welcome', function () {
     return view('welcome');
 });
