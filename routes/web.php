@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // Dashboard routes
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/nodes/{id}', [DashboardController::class, 'nodeDetails'])->name('nodes.details');
+Route::get('/configuration/thresholds', [DashboardController::class, 'thresholdsConfig'])->name('thresholds.config');
+Route::get('/trends', [DashboardController::class, 'trends'])->name('trends');
 
 // Legacy welcome route
 Route::get('/welcome', function () {

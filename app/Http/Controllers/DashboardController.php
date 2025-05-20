@@ -60,4 +60,24 @@ class DashboardController extends Controller
             'node' => $node
         ]);
     }
+    
+    /**
+     * Display the thresholds configuration page.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function thresholdsConfig()
+    {
+        return view('dashboard.thresholds-config');
+    }
+    
+    /**
+     * Display the trends and analysis page.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function trends()
+    {
+        return view('dashboard.trends');
+    }
 }

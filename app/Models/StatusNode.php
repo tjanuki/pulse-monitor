@@ -40,4 +40,28 @@ class StatusNode extends Model
             ->orderByDesc('recorded_at')
             ->take(10);
     }
+    
+    /**
+     * Get the alerts for this status node.
+     */
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
+    }
+    
+    /**
+     * Get the unresolved alerts for this status node.
+     */
+    public function unresolvedAlerts(): HasMany
+    {
+        return $this->hasMany(Alert::class)->whereNull('resolved_at');
+    }
+    
+    /**
+     * Get the historical metrics for this status node.
+     */
+    public function historicalMetrics(): HasMany
+    {
+        return $this->hasMany(HistoricalMetric::class);
+    }
 }
