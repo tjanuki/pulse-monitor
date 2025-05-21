@@ -158,7 +158,7 @@ class CollectMemoryMetricsCommand extends AbstractSendMetricsCommand
                     $memoryInfo['swap_total'] = $swapTotal / 1024 / 1024; // MB
                     $memoryInfo['swap_used'] = $swapUsed / 1024 / 1024; // MB
                     $memoryInfo['swap_free'] = $swapFree / 1024 / 1024; // MB
-                    $memoryInfo['swap_usage_percent'] = ($swapUsed / $swapTotal) * 100;
+                    $memoryInfo['swap_usage_percent'] = ($swapTotal > 0) ? (($swapUsed / $swapTotal) * 100) : 0;
                 }
             }
         }
@@ -211,7 +211,7 @@ class CollectMemoryMetricsCommand extends AbstractSendMetricsCommand
                     $memoryInfo['swap_total'] = $swapTotal; // MB
                     $memoryInfo['swap_used'] = $swapUsed; // MB
                     $memoryInfo['swap_free'] = $swapFree; // MB
-                    $memoryInfo['swap_usage_percent'] = ($swapUsed / $swapTotal) * 100;
+                    $memoryInfo['swap_usage_percent'] = ($swapTotal > 0) ? (($swapUsed / $swapTotal) * 100) : 0;
                 }
             }
         } catch (\Exception $e) {
@@ -271,7 +271,7 @@ class CollectMemoryMetricsCommand extends AbstractSendMetricsCommand
                     $memoryInfo['swap_total'] = $swapTotal / 1024 / 1024; // MB
                     $memoryInfo['swap_used'] = $swapUsed / 1024 / 1024; // MB
                     $memoryInfo['swap_free'] = $swapFree / 1024 / 1024; // MB
-                    $memoryInfo['swap_usage_percent'] = ($swapUsed / $swapTotal) * 100;
+                    $memoryInfo['swap_usage_percent'] = ($swapTotal > 0) ? (($swapUsed / $swapTotal) * 100) : 0;
                 }
             }
         } catch (\Exception $e) {
