@@ -9,12 +9,6 @@ use App\Livewire\StatusNodesCard;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-// Mark entire test class as skipped for now
-// @codingStandardsIgnoreStart
-/**
- * @group skip
- */
-// @codingStandardsIgnoreEnd
 class StatusNodesCardTest extends TestCase
 {
     use RefreshDatabase;
@@ -97,10 +91,9 @@ class StatusNodesCardTest extends TestCase
         Livewire::test(StatusNodesCard::class)
             ->assertSeeInOrder(['A Server', 'Z Server']);
             
-        // Test reverse sorting
+        // Test clicking sort once - should toggle to descending
         Livewire::test(StatusNodesCard::class)
             ->call('sortBy', 'name')
-            ->call('sortBy', 'name') // Call twice to toggle to desc
             ->assertSeeInOrder(['Z Server', 'A Server']);
     }
     

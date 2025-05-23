@@ -23,8 +23,8 @@ class AlertsService
      */
     public function processMetric(StatusMetric $metric): ?Alert
     {
-        // Don't generate alerts for metrics that are OK
-        if ($metric->status === 'ok') {
+        // Don't generate alerts for metrics that are normal
+        if ($metric->status === 'normal') {
             // Check if we need to generate a recovery alert
             return $this->handleRecovery($metric);
         }
@@ -86,7 +86,7 @@ class AlertsService
             'status_node_id' => $metric->status_node_id,
             'status_metric_id' => $metric->id,
             'type' => 'recovery',
-            'message' => "Metric {$metric->name} has recovered and is now OK: {$metric->value}",
+            'message' => "Metric {$metric->name} has recovered and is now normal: {$metric->value}",
             'context' => [
                 'previous_alert' => $existingAlert->toArray(),
                 'metric' => $metric->toArray(),

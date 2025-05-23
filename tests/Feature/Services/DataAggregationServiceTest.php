@@ -42,7 +42,7 @@ class DataAggregationServiceTest extends TestCase
                 'name' => 'cpu_usage',
                 'group' => 'system',
                 'value' => $this->faker->randomFloat(2, 10, 90),
-                'status' => 'ok',
+                'status' => 'normal',
                 'recorded_at' => $startTime->copy()->addMinutes($i * 6),
                 'metadata' => null,
             ]);

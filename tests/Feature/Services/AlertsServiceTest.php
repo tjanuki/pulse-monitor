@@ -86,7 +86,7 @@ class AlertsServiceTest extends TestCase
             'status_node_id' => $node->id,
             'name' => 'memory_usage',
             'value' => 50,
-            'status' => 'ok',
+            'status' => 'normal',
         ]);
         
         // Process the recovery metric
